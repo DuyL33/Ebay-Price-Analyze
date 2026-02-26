@@ -78,6 +78,9 @@ def ebay_advanced_analysis(
             print(f"Highest: ${stats['max']:.2f}")
             print(f"Mean:    ${stats['mean']:.2f}")
             print(f"Median:  ${stats['median']:.2f}")
+            print(f"P25: ${stats['p25']:.2f}")
+            print(f"P50:    ${stats['p50']:.2f}")
+            print(f"P75:  ${stats['p75']:.2f}")
         else:
             print("Validation Failed: No price data could be processed.")
 
@@ -87,15 +90,11 @@ def ebay_advanced_analysis(
 
 if __name__ == "__main__":
     ebay_advanced_analysis(
-        "Seiko mini turtle",
-        condition="used",
-        limit=50,
-        include_shipping=False,
-    )
-    ebay_advanced_analysis(
-        "Seiko mini turtle",d
+        "Seiko 5 snk803",
         condition="used",
         limit=50,
         include_shipping=True,
+        
     )
+
 
