@@ -77,6 +77,7 @@ def ebay_advanced_analysis(
             print(f"Lowest:  ${stats['min']:.2f}")
             print(f"Highest: ${stats['max']:.2f}")
             print(f"Mean:    ${stats['mean']:.2f}")
+            print(f"Trimmed Mean:    ${stats['trimmedmean']:.2f}")
             print(f"Median:  ${stats['median']:.2f}")
             print(f"P25: ${stats['p25']:.2f}")
             print(f"P50:    ${stats['p50']:.2f}")

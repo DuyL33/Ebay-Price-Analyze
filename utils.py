@@ -37,6 +37,22 @@ def calculate_total_price(item_price_text, shipping_text=None, include_shipping=
 
     return item_price + shipping_cost
 
+def get_trimmed_mean(price_list, trim_ratio=0.10):
+    if not price_list:
+        return None
+
+    sorted_prices = sorted(price_list)
+    n = len(sorted_prices)
+    trim_count = int(n * trim_ratio)
+
+    if trim_count == 0:
+        return statistics.mean(sorted_prices)
+
+    trimmed = sorted_prices[trim_count : n - trim_count]
+
+    return statistics.mean(trimmed)
+
+
 # Percentile-based pricing (quantile positioning)
 # ----------------------------------------------
 # We compute P25, P50 (median), and P75 from sold price data.
@@ -50,6 +66,7 @@ def calculate_total_price(item_price_text, shipping_text=None, include_shipping=
 # Percentiles are calculated via linear interpolation on the
 # sorted sold prices to produce stable values even with small samples.
 # All values are based on total buyer cost (item + shipping).
+
 def get_market_stats(price_list):
     if not price_list:
         return None
@@ -69,6 +86,7 @@ def get_market_stats(price_list):
 
     return {
         "mean": statistics.mean(price_list),
+        "trimmedmean": get_trimmed_mean(price_list, 0.10),
         "median": statistics.median(price_list),
         "min": sorted_prices[0],
         "max": sorted_prices[-1],
