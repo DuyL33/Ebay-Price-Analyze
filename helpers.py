@@ -1,4 +1,6 @@
+import re
 from selenium.webdriver.common.by import By
+
 
 
 def extract_shipping_text_from_card(card):
@@ -56,3 +58,11 @@ def extract_url_from_card(card):
         return href
     except Exception:
         return None
+    
+_EBAY_ITEM_RE = re.compile(r"/itm/(?:[^/]+/)?(\d{9,14})")
+
+def extract_ebay_item_id(url: str | None) -> str | None:
+    if not url:
+        return None
+    m = _EBAY_ITEM_RE.search(url)
+    return m.group(1) if m else None
