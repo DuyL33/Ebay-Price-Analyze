@@ -125,6 +125,3 @@ def ebay_advanced_analysis(
         driver.quit()
         conn.close()
 
-
-if __name__ == "__main__":
-    ebay_advanced_analysis("Seiko 5 SNK803", condition="used", limit=50, include_shipping=True)

@@ -34,7 +34,7 @@ Fair Market (P50):  $21.99 | est net ~ $19.08
 Patient (P75):      $43.30 | est net ~ $37.57
 
 Listed at 20 + shipping. 10% under 050
-
+March 8th 2 views. -> price might be too high. 
 --- Market Report: STUDIO SERIES 80 DELUXE CLASS BUMBLEBEE AUTOBOT BRAWN (USED) ---
 Sample Size: 50 sold items
 Lowest:  $5.00
@@ -52,3 +52,7 @@ Fair Market (P50):  $19.00 | est net ~ $16.48
 Patient (P75):      $24.99 | est net ~ $21.68
 
 Listed at 17 + shipping. 10% under p50
+March 8th 0 views. -> price might be too high. 
+
+Theory: Ebay wants quick sale. Ebay is not pushing these 2 listings due to prices being higher then Ebay's recommnendation. 
+Action: Cut prices by another 10%. Also, after reviewing sold listings, query was returning to much noises. Gotta create better search query to reduce noise.
