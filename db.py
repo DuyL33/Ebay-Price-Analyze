@@ -143,3 +143,22 @@ def get_recent_totals(
         (source, query, condition, f"-{int(days)} days"),
     ).fetchall()
     return [float(r["total"]) for r in rows]
+
+def get_totals_grouped_by_day(conn, source: str, query: str, condition: str):
+    rows = conn.execute(
+        """
+        SELECT date(scraped_at) AS day, total
+        FROM listings
+        WHERE source = ? AND query = ? AND condition = ?
+        ORDER BY scraped_at ASC
+        """,
+        (source, query, condition),
+    ).fetchall()
+
+    grouped = {}
+    for row in rows:
+        day = row["day"]
+        total = float(row["total"])
+        grouped.setdefault(day, []).append(total)
+
+    return grouped
