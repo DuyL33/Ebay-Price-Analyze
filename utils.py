@@ -36,7 +36,24 @@ def get_trimmed_mean(price_list, trim_ratio=0.10):
     trimmed = sorted_prices[trim:n - trim]
     return statistics.mean(trimmed)
 
+def remove_outliers_iqr(price_list):
+    if not price_list:
+        return []
 
+    sorted_prices = sorted(price_list)
+    stats = get_market_stats(sorted_prices)
+
+    p25 = stats["p25"]
+    p75 = stats["p75"]
+    iqr = p75 - p25
+
+    lower = p25 - 1.5 * iqr
+    upper = p75 + 1.5 * iqr
+
+    return [p for p in price_list if lower <= p <= upper]
+    
+
+    
 def get_market_stats(price_list, trim_ratio=0.10):
     if not price_list:
         return None

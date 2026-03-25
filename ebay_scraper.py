@@ -4,13 +4,14 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
-from utils import get_market_stats, calculate_total_price, clean_price
+from utils import get_market_stats, calculate_total_price, clean_price, remove_outliers_iqr
 from helpers import (
     extract_shipping_text_from_card,
     extract_title_from_card,
     extract_url_from_card,
     extract_ebay_item_id,
 )
+from model_matching import match_watch_title
 from db import connect_db, init_db, create_run, save_listings
 
 
@@ -61,6 +62,10 @@ def ebay_advanced_analysis(
         for card in cards[:limit]:
             try:
                 title = extract_title_from_card(card)
+
+                if not match_watch_title(title, search_query):
+                    print(f"Rejected title: {title}")
+                    continue
                 url = extract_url_from_card(card)
                 item_id = extract_ebay_item_id(url)
 
@@ -93,8 +98,9 @@ def ebay_advanced_analysis(
 
             except Exception:
                 continue
-
-        stats = get_market_stats(totals, trim_ratio=trim_ratio)
+    
+        removed_outliers = remove_outliers_iqr(totals)
+        stats = get_market_stats(removed_outliers, trim_ratio=trim_ratio)
 
         print(f"\n--- Market Report: {search_query.upper()} ({condition.upper()}) ---")
         print(f"Sample Size: {len(totals)} sold items")
