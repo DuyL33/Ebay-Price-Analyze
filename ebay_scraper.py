@@ -11,7 +11,7 @@ from helpers import (
     extract_url_from_card,
     extract_ebay_item_id,
 )
-from model_matching import match_watch_title
+from model_matching import match_title
 from db import connect_db, init_db, create_run, save_listings
 
 
@@ -63,7 +63,7 @@ def ebay_advanced_analysis(
             try:
                 title = extract_title_from_card(card)
 
-                if not match_watch_title(title, search_query):
+                if not match_title(title, search_query):
                     print(f"Rejected title: {title}")
                     continue
                 url = extract_url_from_card(card)
